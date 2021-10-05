@@ -1,0 +1,10 @@
+
+    # train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
+    train: data/images
+    val: data/images
+    # number of classes
+    nc: 26
+    
+    # class names
+    names: ['973p81', '20460p03', '11938', '2526', '40233', '973p78', '20693', '3846p45', '973p46', '30171', '30480ps0', '3836', '3815pa9', '20461p08', '90370', '73200p89', '21019p07', '30193', '92083', '40251', '973pd7f', '4503', '3626cpnf', '973p16', '973p97', '973pc2']
+            
