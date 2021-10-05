@@ -176,7 +176,7 @@ print("SIZE ", dimA, " ", dimB)
 # show the output image
 # cv2.imshow("Image", orig)
 
-label_data = args["scale"] +" "+ str(xmin_one)+","+str(ymin_one)+" "+str(xmax_two)+","+str(ymin_two)+" "+str(xmax_three)+","+str(ymax_three)+" "+str(xmin_four)+","+str(ymax_four)
+label_data = args["scale"] +" "+ str(xmin_one)+","+str(ymin_one)+","+str(xmax_two)+","+str(ymin_two)+","+str(xmax_three)+","+str(ymax_three)+","+str(xmin_four)+","+str(ymax_four)
 print(label_data)
 
 img_location_loc = "data_export_bricks/images/%s/%s/%s"%(args["label"],str(args["image"]).split("/")[1],str(args["image"]).split("/")[2])

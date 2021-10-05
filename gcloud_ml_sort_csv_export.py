@@ -51,7 +51,8 @@ for lp in PART_NAMES[0]:
         LIST_LABELS = "cat data_export_bricks/labels/%s/%s"%(lp,lt.split(".png")[0]+".txt")
         ry = subprocess.check_output(LIST_LABELS, shell=True).strip()
         ru = ry.decode().split('\n')
-        print("UNASSIGNED","gs://whichbrick-2/data_export_bricks/images/%s/%s"%(lp,lt),lp,ru[0].split(" ")[1],ru[0].split(" ")[2],ru[0].split(" ")[3]+",,,"+ru[0].split(" ")[4]+",,")
+        print(ru[0].split(","))
+        print("UNASSIGNED","gs://whichbrick-2/data_export_bricks/images/%s/%s"%(lp,lt),lp,ru[0].split(" ")[1].split(",")[0],ru[0].split(" ")[1].split(",")[1],ru[0].split(" ")[1].split(",")[2],ru[0].split(" ")[1].split(",")[3],ru[0].split(" ")[1].split(",")[4],ru[0].split(" ")[1].split(",")[5],ru[0].split(" ")[1].split(",")[6],ru[0].split(" ")[1].split(",")[7])
         with open('gcloud_bricks.csv', 'a', newline='') as csvfile:
             spamwriter = csv.writer(csvfile,delimiter=',')
-            spamwriter.writerow(["UNASSIGNED","gs://whichbrick-2/data_export_bricks/images/%s/%s"%(lp,lt),lp,ru[0].split(" ")[1],ru[0].split(" ")[2]+",,,",ru[0].split(" ")[3],ru[0].split(" ")[4]+",,"])
+            spamwriter.writerow(["UNASSIGNED","gs://whichbrick-3/data_export_bricks/images/%s/%s"%(lp,lt),lp])#,ru[0].split(" ")[1].split(",")[0],ru[0].split(" ")[1].split(",")[1],ru[0].split(" ")[1].split(",")[2],ru[0].split(" ")[1].split(",")[3],ru[0].split(" ")[1].split(",")[4],ru[0].split(" ")[1].split(",")[5],ru[0].split(" ")[1].split(",")[6],ru[0].split(" ")[1].split(",")[7]])
