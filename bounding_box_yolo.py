@@ -185,8 +185,10 @@ label_location_loc = "data_export_%s/labels/%s/%s/%s"%(args["name"],args["label"
 #-p for macos -R for linux for recussive mkdir
 
 imgs = "mkdir -p %s"%(img_location_loc.split("/")[0]+"/"+img_location_loc.split("/")[1]+"/"+img_location_loc.split("/")[2]+"/")
-labels = "mkdir -p %s"%(label_location_loc.split("/")[0]+"/"+label_location_loc.split("/")[1]+"/"+label_location_loc.split("/")[2])
+labels = "mkdir -p %s"%(label_location_loc.split("/")[0]+"/"+label_location_loc.split("/")[1]+"/"+label_location_loc.split("/")[2]+"/")
 
+print(imgs)
+print(labels)
 os.system(imgs)
 os.system(labels)
 print("databse data ",imgs)
