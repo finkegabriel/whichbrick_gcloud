@@ -19,8 +19,8 @@ ap.add_argument("-l", "--label", required=True,
                 help="image label")
 ap.add_argument("-w", "--width", type=float, required=True,
                 help="width of the left-most object in the image (in inches)")
-ap.add_argument("-s", "--scale", type=str, required=True,
-                help="scale of the yaml file")
+ap.add_argument("-n", "--name", type=str, required=True,
+                help="name of the category")
 args = vars(ap.parse_args())
 
 # load the image, convert it to grayscale, and blur it slightly
@@ -141,8 +141,8 @@ def add_to_csv(label, x_min, x_max, y_min, y_max):
 def add_label(path,data):
 	print("mack ")
 	print(path.split("/"))
-	label_paths = "../ml/data_export_bricks/labels/"+path.split("/")[2]
-	label_file = "../ml/data_export_bricks/labels/"+path.split("/")[2]+"/"+path.split("/")[3]
+	label_paths = "../ml/data_export_animal/labels/"+path.split("/")[2]
+	label_file = "../ml/data_export_animal/labels/"+path.split("/")[2]+"/"+path.split("/")[3]
 	os.system("mkdir %s"%(label_paths))
 	f = open(label_file, "a")
 	f.write(data)
@@ -176,11 +176,11 @@ print("SIZE ", dimA, " ", dimB)
 # show the output image
 # cv2.imshow("Image", orig)
 
-label_data = args["scale"] +" "+ str(xmin_one)+","+str(ymin_one)+","+str(xmax_two)+","+str(ymin_two)+","+str(xmax_three)+","+str(ymax_three)+","+str(xmin_four)+","+str(ymax_four)
+label_data = args["name"] +" "+ str(xmin_one)+","+str(ymin_one)+","+str(xmax_two)+","+str(ymin_two)+","+str(xmax_three)+","+str(ymax_three)+","+str(xmin_four)+","+str(ymax_four)
 print(label_data)
 
-img_location_loc = "data_export_bricks/images/%s/%s/%s"%(args["label"],str(args["image"]).split("/")[1],str(args["image"]).split("/")[2])
-label_location_loc = "data_export_bricks/labels/%s/%s/%s"%(args["label"],str(args["image"]).split("/")[1],str(args["image"]).split("/")[2])
+img_location_loc = "data_export_%s/images/%s/%s/%s"%(args["name"],args["label"],str(args["image"]).split("/")[1],str(args["image"]).split("/")[2])
+label_location_loc = "data_export_%s/labels/%s/%s/%s"%(args["name"],args["label"],str(args["image"]).split("/")[1],str(args["image"]).split("/")[2])
 # print("loc ",))
 #-p for macos -R for linux for recussive mkdir
 
@@ -192,8 +192,8 @@ os.system(labels)
 print("databse data ",imgs)
 print("databse data ",labels)
 
-frank_img_label = "data_export_bricks/labels/%s/%s"%(args["label"],label_location_loc.split("/")[4].split(".png")[0]+".txt")
-frank_img_path = "data_export_bricks/images/%s/%s"%(args["label"],label_location_loc.split("/")[4])
+frank_img_label = "data_export_%s/labels/%s/%s"%(args["name"],args["label"],label_location_loc.split("/")[4].split(".png")[0]+".txt")
+frank_img_path = "data_export_%s/images/%s/%s"%(args["name"],args["label"],label_location_loc.split("/")[4])
 print("franksss ",frank_img_label)
 print("image ",frank_img_path)
 touch = "touch %s && echo %s > %s"%(frank_img_label,label_data,frank_img_label)
