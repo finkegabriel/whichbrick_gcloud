@@ -1,5 +1,11 @@
 import csv
 import subprocess
+import argparse
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-n", "--name", type=str, required=True,
+                help="name of the category")
+args = vars(ap.parse_args())
 
 '''
 ,,,,,,,,,
@@ -35,7 +41,7 @@ automl=pd.DataFrame(columns=['set', 'file', 'label',
 PART_NAMES = []
 IMG_NAMES = []
 
-LS_ONE = "ls data_export_bricks/images/"
+LS_ONE = "ls data_export_%s/images/"%(args["name"])
 
 ro = subprocess.check_output(LS_ONE, shell=True).strip()
 rl = ro.decode().split('\n')
@@ -48,11 +54,11 @@ for lp in PART_NAMES[0]:
     rs = rt.decode().split('\n')
     for lt in rs:
         # print("gs://whichbrick-2/data_export_bricks/images/%s/%s"%(lp,lt))
-        LIST_LABELS = "cat data_export_bricks/labels/%s/%s"%(lp,lt.split(".png")[0]+".txt")
+        LIST_LABELS = "cat data_export_%s/labels/%s/%s"%(args["name"],lp,lt.split(".png")[0]+".txt")
         ry = subprocess.check_output(LIST_LABELS, shell=True).strip()
         ru = ry.decode().split('\n')
         print(ru[0].split(","))
-        print("UNASSIGNED","gs://whichbrick-2/data_export_bricks/images/%s/%s"%(lp,lt),lp,ru[0].split(" ")[1].split(",")[0],ru[0].split(" ")[1].split(",")[1],ru[0].split(" ")[1].split(",")[2],ru[0].split(" ")[1].split(",")[3],ru[0].split(" ")[1].split(",")[4],ru[0].split(" ")[1].split(",")[5],ru[0].split(" ")[1].split(",")[6],ru[0].split(" ")[1].split(",")[7])
-        with open('gcloud_bricks.csv', 'a', newline='') as csvfile:
+        print("UNASSIGNED","gs://whichbrick-2/data_export_%s/images/%s/%s"%(args["name"],lp,lt),lp,ru[0].split(" ")[1].split(",")[0],ru[0].split(" ")[1].split(",")[1],ru[0].split(" ")[1].split(",")[2],ru[0].split(" ")[1].split(",")[3],ru[0].split(" ")[1].split(",")[4],ru[0].split(" ")[1].split(",")[5],ru[0].split(" ")[1].split(",")[6],ru[0].split(" ")[1].split(",")[7])
+        with open('gcloud_%s.csv'%(args["name"]), 'a', newline='') as csvfile:
             spamwriter = csv.writer(csvfile,delimiter=',')
-            spamwriter.writerow(["UNASSIGNED","gs://whichbrick-3/data_export_bricks/images/%s/%s"%(lp,lt),lp])#,ru[0].split(" ")[1].split(",")[0],ru[0].split(" ")[1].split(",")[1],ru[0].split(" ")[1].split(",")[2],ru[0].split(" ")[1].split(",")[3],ru[0].split(" ")[1].split(",")[4],ru[0].split(" ")[1].split(",")[5],ru[0].split(" ")[1].split(",")[6],ru[0].split(" ")[1].split(",")[7]])
+            spamwriter.writerow(["UNASSIGNED","gs://whichbrick-3/data_export_%s/images/%s/%s"%(args["name"],lp,lt),lp])#,ru[0].split(" ")[1].split(",")[0],ru[0].split(" ")[1].split(",")[1],ru[0].split(" ")[1].split(",")[2],ru[0].split(" ")[1].split(",")[3],ru[0].split(" ")[1].split(",")[4],ru[0].split(" ")[1].split(",")[5],ru[0].split(" ")[1].split(",")[6],ru[0].split(" ")[1].split(",")[7]])
