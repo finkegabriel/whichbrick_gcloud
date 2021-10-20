@@ -120,17 +120,20 @@ ymin.append(bl[1])
 '''
 
 
-xmin_one = np.min(tl[0])/320
-ymin_one = np.max(tr[1])/320
+# xmin_one = np.min(tl[0])
+# ymin_one = np.max(tr[1])
 
-xmax_two = np.max(br[0])/320
-ymin_two = np.min(bl[1])/320
+# xmax_two = np.max(br[0])/320
+# ymin_two = np.min(bl[1])/320
 
-xmax_three = np.max(tl[0])/320
-ymax_three = np.max(tr[1])/320
+# xmax_three = np.max(tl[0])/320
+# ymax_three = np.max(tr[1])/320
 
-xmin_four = np.min(br[0])/320
-ymax_four = np.max(bl[1])/320
+# xmin_four = np.min(br[0])/320
+# ymax_four = np.max(bl[1])/320
+
+# cv2.putText(orig,("%s,%s"%(tl[0]/100,tl[1]/100)), (int(tl[0]),int(tl[1])), 0, 1, 255)
+# cv2.putText(orig,("%s,%s"%(br[0]/100,br[1]/100)), (int(br[0]),int(br[1])), 0, 1, 255)
 
 def add_to_csv(label, x_min, x_max, y_min, y_max):
 	with open('yolo.csv', 'a', newline='') as csvfile:
@@ -176,7 +179,8 @@ print("SIZE ", dimA, " ", dimB)
 # show the output image
 # cv2.imshow("Image", orig)
 
-label_data = args["name"] +" "+ str(xmin_one)+","+str(ymin_one)+","+str(xmax_two)+","+str(ymin_two)+","+str(xmax_three)+","+str(ymax_three)+","+str(xmin_four)+","+str(ymax_four)
+label_data = args["name"] +" "+str(tl[0]/100)+","+str(tl[1]/100)+",,,"+str(bl[0]/100)+","+str(bl[1]/100)+",,"
+# label_data = args["name"] +" "+ str(xmin_one)+","+str(ymin_one)+","+str(xmax_two)+","+str(ymin_two)+","+str(xmax_three)+","+str(ymax_three)+","+str(xmin_four)+","+str(ymax_four)
 print(label_data)
 
 img_location_loc = "data_export_%s/images/%s/%s/%s"%(args["name"],args["label"],str(args["image"]).split("/")[1],str(args["image"]).split("/")[2])
@@ -203,4 +207,5 @@ touch = "touch %s && echo %s > %s"%(frank_img_label,label_data,frank_img_label)
 os.system(touch)
 # add_to_csv(label_location_loc.split("/")[3],label_data)
 cv2.imwrite(frank_img_path, orig)
+# cv2.imshow("preview ",orig)
 # cv2.waitKey(0)

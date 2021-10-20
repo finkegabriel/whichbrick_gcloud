@@ -9,7 +9,7 @@ import os
 # for row in csv_reader:
 # print("mkdir export_grayscale/%sldr"%(row[2].split("/")[0]))
 # os.system("mkdir export_grayscale/%sldr" % (row[2].split("/")[0]))
-image_current = "3.jpg"
+image_current = "backgrounds/5.jpg"
 # print(image_current)
 img = Image.open(image_current).convert('LA')
 image = cv2.imread("%s" % (image_current))
@@ -22,4 +22,4 @@ img2[:, :, 2] = gray
 # save_img = ("export_grayscale/"+row[2]+"ldr/"+row[0]).split("/")
 # save_img_actutal = save_img[0]+"/"+save_img[1]+"/"+save_img[4]
 # print(save_img)
-cv2.imwrite("3.png", img2)
+cv2.imwrite("backgrounds/5.png", img2)
