@@ -204,8 +204,16 @@ print("franksss ",frank_img_label)
 print("image ",frank_img_path)
 touch = "touch %s && echo %s > %s"%(frank_img_label,label_data,frank_img_label)
 # print(label_location_loc.split("/")[3])
-os.system(touch)
+
+#### Touch's files and echos data to it
+# os.system(touch)
+
 # add_to_csv(label_location_loc.split("/")[3],label_data)
-cv2.imwrite(frank_img_path, orig)
+
+###### Write the image to filesystem
+# cv2.imwrite(frank_img_path, orig)
+
+
 # cv2.imshow("preview ",orig)
 # cv2.waitKey(0)
+os.system("python impose_all_images.py -p %s"%(frank_img_path))
