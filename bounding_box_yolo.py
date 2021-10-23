@@ -188,6 +188,8 @@ label_location_loc = "data_export_%s/labels/%s/%s/%s"%(args["name"],args["label"
 # print("loc ",))
 #-p for macos -R for linux for recussive mkdir
 
+
+#TODO append impose/to the front of this command in order to place the labels in the right places 
 imgs = "mkdir -p %s"%(img_location_loc.split("/")[0]+"/"+img_location_loc.split("/")[1]+"/"+img_location_loc.split("/")[2]+"/")
 labels = "mkdir -p %s"%(label_location_loc.split("/")[0]+"/"+label_location_loc.split("/")[1]+"/"+label_location_loc.split("/")[2]+"/")
 
@@ -206,12 +208,12 @@ touch = "touch %s && echo %s > %s"%(frank_img_label,label_data,frank_img_label)
 # print(label_location_loc.split("/")[3])
 
 #### Touch's files and echos data to it
-# os.system(touch)
+os.system(touch)
 
 # add_to_csv(label_location_loc.split("/")[3],label_data)
 
 ###### Write the image to filesystem
-# cv2.imwrite(frank_img_path, orig)
+cv2.imwrite(frank_img_path, orig)
 
 
 # cv2.imshow("preview ",orig)
