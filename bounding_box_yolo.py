@@ -56,7 +56,7 @@ for c in cnts:
 	# order, then draw the outline of the rotated bounding
 	# box
 	box = perspective.order_points(box)
-	## Uncomment if you want bounding boi's around your img
+	# Uncomment if you want bounding boi's around your img
 	# cv2.drawContours(orig, [box.astype("int")], -1, (0, 255, 0), 1)
 	# # loop over the original points and draw them
 	# for (x, y) in box:
@@ -77,6 +77,17 @@ def center(tl,tr,br,bl):
 	# between the top-left and top-right coordinates, followed by
 	# the midpoint between bottom-left and bottom-right coordinates
 (tl, tr, br, bl) = box
+
+#The bellow cords. are a function of the image size and the width of the object
+print("BOXING BOXES BOI's ","\n",
+(tl[0]/320),"\n",
+(tl[1]/320),"\n",
+(tr[0]/320),"\n",
+(tr[1]/320),"\n",
+(br[0]/320),"\n",
+(br[1]/320),"\n",
+(bl[0]/320),"\n",
+(bl[1]/320))
 
 width, height = height_width_image(tl,tr,br,bl)
 xcenter , ycenter = center(tl,tr,br,bl)
@@ -179,7 +190,7 @@ print("SIZE ", dimA, " ", dimB)
 # show the output image
 # cv2.imshow("Image", orig)
 
-label_data = args["name"] +" "+str(tl[0]/100)+","+str(tl[1]/100)+",,,"+str(bl[0]/100)+","+str(bl[1]/100)+",,"
+label_data = args["name"] +" "+str(tl[0]/320)+","+str(tl[1]/320)+",,,"+str(bl[0]/320)+","+str(bl[1]/320)+",,"
 # label_data = args["name"] +" "+ str(xmin_one)+","+str(ymin_one)+","+str(xmax_two)+","+str(ymin_two)+","+str(xmax_three)+","+str(ymax_three)+","+str(xmin_four)+","+str(ymax_four)
 print(label_data)
 
@@ -191,7 +202,7 @@ label_location_loc = "data_export_%s/labels/%s/%s/%s"%(args["name"],args["label"
 
 #TODO append impose/to the front of this command in order to place the labels in the right places 
 imgs = "mkdir -p %s"%(img_location_loc.split("/")[0]+"/"+img_location_loc.split("/")[1]+"/"+img_location_loc.split("/")[2]+"/")
-labels = "mkdir -p %s"%(label_location_loc.split("/")[0]+"/"+label_location_loc.split("/")[1]+"/"+label_location_loc.split("/")[2]+"/")
+labels = "mkdir -p %s"%('impose/'+label_location_loc.split("/")[0]+"/"+label_location_loc.split("/")[1]+"/"+label_location_loc.split("/")[2]+"/")
 
 print(imgs)
 print(labels)
@@ -200,7 +211,7 @@ os.system(labels)
 print("databse data ",imgs)
 print("databse data ",labels)
 
-frank_img_label = "data_export_%s/labels/%s/%s"%(args["name"],args["label"],label_location_loc.split("/")[4].split(".png")[0]+".txt")
+frank_img_label = "impose/data_export_%s/labels/%s/%s"%(args["name"],args["label"],label_location_loc.split("/")[4].split(".png")[0]+".txt")
 frank_img_path = "data_export_%s/images/%s/%s"%(args["name"],args["label"],label_location_loc.split("/")[4])
 print("franksss ",frank_img_label)
 print("image ",frank_img_path)
@@ -214,7 +225,6 @@ os.system(touch)
 
 ###### Write the image to filesystem
 cv2.imwrite(frank_img_path, orig)
-
 
 # cv2.imshow("preview ",orig)
 # cv2.waitKey(0)
