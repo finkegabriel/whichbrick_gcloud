@@ -65,3 +65,5 @@ for lp in PART_NAMES[0]:
             spamwriter = csv.writer(csvfile,delimiter=',')
             for i in range(1,6):
                 spamwriter.writerow(["UNASSIGNED","gs://whichbrick-2/data_export_%s/images/%s/%s"%(args["name"],lp,lt.split('.png')[0]+'_%s'%(i)+'.png'),lp,ru[0].split(" ")[1].split(",")[0],ru[0].split(" ")[1].split(",")[1],ru[0].split(" ")[1].split(",")[2],ru[0].split(" ")[1].split(",")[3],ru[0].split(",")[4],ru[0].split(",")[5],'','',])
+
+# gsutil -m cp -r gcloud_Animal.csv gs://whichbrick-2

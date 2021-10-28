@@ -47,6 +47,16 @@ for c in cnts:
 	if cv2.contourArea(c) < 100:
 		continue
 	# compute the rotated bounding box of the contour
+	# box = cv2.boxPoints(rect)
+	# box = np.int0(box)
+	# box = cv2.cv.BoxPoints(box) if imutils.is_cv2() else cv2.boxPoints(box)
+	# order the points in the contour such that they appear
+	# in top-left, top-right, bottom-right, and bottom-left
+	# order, then draw the outline of the rotated bounding
+	# box
+	# Uncomment if you want bounding boi's around your img
+	x,y,w,h = cv2.boundingRect(c)
+	print("two flat ",x,y,w,h)
 	orig = image.copy()
 	box = cv2.minAreaRect(c)
 	box = cv2.cv.BoxPoints(box) if imutils.is_cv2() else cv2.boxPoints(box)
@@ -56,8 +66,7 @@ for c in cnts:
 	# order, then draw the outline of the rotated bounding
 	# box
 	box = perspective.order_points(box)
-	# Uncomment if you want bounding boi's around your img
-	# cv2.drawContours(orig, [box.astype("int")], -1, (0, 255, 0), 1)
+	cv2.rectangle(orig,(x,y),(x+w,y+h),(0,255,0),2)
 	# # loop over the original points and draw them
 	# for (x, y) in box:
 	# 	cv2.circle(orig, (int(x), int(y)), 5, (0, 0, 255), -1)
@@ -190,6 +199,9 @@ print("SIZE ", dimA, " ", dimB)
 # show the output image
 # cv2.imshow("Image", orig)
 
+#create square out of rectangle
+print("rectangle ",tl[0]/320,"  ")
+
 label_data = args["name"] +" "+str(tl[0]/320)+","+str(tl[1]/320)+",,,"+str(bl[0]/320)+","+str(bl[1]/320)+",,"
 # label_data = args["name"] +" "+ str(xmin_one)+","+str(ymin_one)+","+str(xmax_two)+","+str(ymin_two)+","+str(xmax_three)+","+str(ymax_three)+","+str(xmin_four)+","+str(ymax_four)
 print(label_data)
@@ -224,8 +236,8 @@ os.system(touch)
 # add_to_csv(label_location_loc.split("/")[3],label_data)
 
 ###### Write the image to filesystem
-cv2.imwrite(frank_img_path, orig)
+# cv2.imwrite(frank_img_path, orig)
 
-# cv2.imshow("preview ",orig)
-# cv2.waitKey(0)
+cv2.imshow("preview ",orig)
+cv2.waitKey(0)
 os.system("python impose_all_images.py -p %s"%(frank_img_path))
