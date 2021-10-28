@@ -89,7 +89,7 @@ def center(tl,tr,br,bl):
 	# the midpoint between bottom-left and bottom-right coordinates
 (tl, tr, br, bl) = square(cnts)
 x,y,w,h = square(cnts)
-cv2.rectangle(orig,(x,y),(x+w,y+h),(0,255,0),2)
+# cv2.rectangle(orig,(x,y),(x+w,y+h),(0,255,0),2)
 
 print("box ",tl,tr,br,bl)
 

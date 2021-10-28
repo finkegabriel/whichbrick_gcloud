@@ -41,7 +41,7 @@ automl=pd.DataFrame(columns=['set', 'file', 'label',
 PART_NAMES = []
 IMG_NAMES = []
 
-LS_ONE = "ls impose/data_export_%s/images/"%(args["name"])
+LS_ONE = "ls data_export_%s/images/"%(args["name"])
 
 ro = subprocess.check_output(LS_ONE, shell=True).strip()
 rl = ro.decode().split('\n')
