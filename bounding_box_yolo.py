@@ -69,7 +69,6 @@ def square(cnts):
 	# box
 		box = perspective.order_points(box)
 		return x,y,w,h
-	# cv2.rectangle(orig,(x,y),(x+w,y+h),(0,255,0),2)
 	# # loop over the original points and draw them
 	# for (x, y) in box:
 	# 	cv2.circle(orig, (int(x), int(y)), 5, (0, 0, 255), -1)
@@ -89,6 +88,8 @@ def center(tl,tr,br,bl):
 	# between the top-left and top-right coordinates, followed by
 	# the midpoint between bottom-left and bottom-right coordinates
 (tl, tr, br, bl) = square(cnts)
+x,y,w,h = square(cnts)
+cv2.rectangle(orig,(x,y),(x+w,y+h),(0,255,0),2)
 
 print("box ",tl,tr,br,bl)
 
