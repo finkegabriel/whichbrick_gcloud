@@ -41,11 +41,13 @@ cnts = imutils.grab_contours(cnts)
 # 'pixels per metric' calibration variable
 (cnts, _) = contours.sort_contours(cnts)
 pixelsPerMetric = None
+orig = image.copy()
 
-for c in cnts:
-	# if the contour is not sufficiently large, ignore it
-	if cv2.contourArea(c) < 100:
-		continue
+def square(cnts):
+	for c in cnts:
+		# if the contour is not sufficiently large, ignore it
+		if cv2.contourArea(c) < 100:
+			continue
 	# compute the rotated bounding box of the contour
 	# box = cv2.boxPoints(rect)
 	# box = np.int0(box)
@@ -55,18 +57,19 @@ for c in cnts:
 	# order, then draw the outline of the rotated bounding
 	# box
 	# Uncomment if you want bounding boi's around your img
-	x,y,w,h = cv2.boundingRect(c)
-	print("two flat ",x,y,w,h)
-	orig = image.copy()
-	box = cv2.minAreaRect(c)
-	box = cv2.cv.BoxPoints(box) if imutils.is_cv2() else cv2.boxPoints(box)
-	box = np.array(box, dtype="int")
+		x,y,w,h = cv2.boundingRect(c)
+		print("two flat ",x,y,w,h)
+		orig = image.copy()
+		box = cv2.minAreaRect(c)
+		box = cv2.cv.BoxPoints(box) if imutils.is_cv2() else cv2.boxPoints(box)
+		box = np.array(box, dtype="int")
 	# order the points in the contour such that they appear
 	# in top-left, top-right, bottom-right, and bottom-left
 	# order, then draw the outline of the rotated bounding
 	# box
-	box = perspective.order_points(box)
-	cv2.rectangle(orig,(x,y),(x+w,y+h),(0,255,0),2)
+		box = perspective.order_points(box)
+		return x,y,w,h
+	# cv2.rectangle(orig,(x,y),(x+w,y+h),(0,255,0),2)
 	# # loop over the original points and draw them
 	# for (x, y) in box:
 	# 	cv2.circle(orig, (int(x), int(y)), 5, (0, 0, 255), -1)
@@ -85,47 +88,23 @@ def center(tl,tr,br,bl):
 # unpack the ordered bounding box, then compute the midpoint
 	# between the top-left and top-right coordinates, followed by
 	# the midpoint between bottom-left and bottom-right coordinates
-(tl, tr, br, bl) = box
+(tl, tr, br, bl) = square(cnts)
+
+print("box ",tl,tr,br,bl)
 
 #The bellow cords. are a function of the image size and the width of the object
-print("BOXING BOXES BOI's ","\n",
-(tl[0]/320),"\n",
-(tl[1]/320),"\n",
-(tr[0]/320),"\n",
-(tr[1]/320),"\n",
-(br[0]/320),"\n",
-(br[1]/320),"\n",
-(bl[0]/320),"\n",
-(bl[1]/320))
+# print("BOXING BOXES BOI's ","\n",
+# (tl[0]/320),"\n",
+# (tl[1]/320),"\n",
+# (tr[0]/320),"\n",
+# (tr[1]/320),"\n",
+# (br[0]/320),"\n",
+# (br[1]/320),"\n",
+# (bl[0]/320),"\n",
+# (bl[1]/320))
 
-width, height = height_width_image(tl,tr,br,bl)
-xcenter , ycenter = center(tl,tr,br,bl)
-
-
-xmin = []
-xmax = []
-ymin = []
-ymax = []
-
-xmin.append(tl[0])
-xmin.append(tr[0])
-xmin.append(br[0])
-xmin.append(bl[0])
-
-xmax.append(tl[0])
-xmax.append(tr[0])
-xmax.append(br[0])
-xmax.append(bl[0])
-
-ymax.append(tl[1])
-ymax.append(tr[1])
-ymax.append(br[1])
-ymax.append(bl[1])
-
-ymin.append(tl[1])
-ymin.append(tr[1])
-ymin.append(br[1])
-ymin.append(bl[1])
+# width, height = height_width_image(tl,tr,br,bl)
+# xcenter , ycenter = center(tl,tr,br,bl)
 
 # x_min_actual = np.min(xmin)
 # x_max_acutal = np.max(xmax)
@@ -200,9 +179,9 @@ print("SIZE ", dimA, " ", dimB)
 # cv2.imshow("Image", orig)
 
 #create square out of rectangle
-print("rectangle ",tl[0]/320,"  ")
+print("rectangle ",tl/320,"  ")
 
-label_data = args["name"] +" "+str(tl[0]/320)+","+str(tl[1]/320)+",,,"+str(bl[0]/320)+","+str(bl[1]/320)+",,"
+label_data = args["name"] +" "+str(tl/320)+","+str(tl/320)+",,,"+str(bl/320)+","+str(bl/320)+",,"
 # label_data = args["name"] +" "+ str(xmin_one)+","+str(ymin_one)+","+str(xmax_two)+","+str(ymin_two)+","+str(xmax_three)+","+str(ymax_three)+","+str(xmin_four)+","+str(ymax_four)
 print(label_data)
 
@@ -236,8 +215,8 @@ os.system(touch)
 # add_to_csv(label_location_loc.split("/")[3],label_data)
 
 ###### Write the image to filesystem
-# cv2.imwrite(frank_img_path, orig)
+cv2.imwrite(frank_img_path, orig)
 
-cv2.imshow("preview ",orig)
-cv2.waitKey(0)
+# cv2.imshow("preview ",orig)
+# cv2.waitKey(0)
 os.system("python impose_all_images.py -p %s"%(frank_img_path))
