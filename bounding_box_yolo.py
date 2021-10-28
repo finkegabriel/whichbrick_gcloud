@@ -182,7 +182,7 @@ print("SIZE ", dimA, " ", dimB)
 #create square out of rectangle
 print("rectangle ",tl/320,"  ")
 
-label_data = args["name"] +" "+str(tl/320)+","+str(tl/320)+",,,"+str(bl/320)+","+str(bl/320)+",,"
+label_data = args["name"] +" "+str(x/320)+","+str(y/320)+",,,"+str((x+w)/320)+","+str((y+h)/320)+",,"
 # label_data = args["name"] +" "+ str(xmin_one)+","+str(ymin_one)+","+str(xmax_two)+","+str(ymin_two)+","+str(xmax_three)+","+str(ymax_three)+","+str(xmin_four)+","+str(ymax_four)
 print(label_data)
 
